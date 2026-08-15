@@ -1,0 +1,24 @@
+{
+  "name": "t3rri-hub",
+  "version": "0.2.0",
+  "private": true,
+  "engines": {
+    "node": ">=18.18.0"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "next": "^16.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "next-auth": "^5.0.0-beta.0",
+    "adm-zip": "latest",
+    "nodemailer": "latest",
+    "web-push": "latest",
+    "@monaco-editor/react": "latest"
+  }
+}

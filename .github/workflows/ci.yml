@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - run: npm install
+
+      - run: npm test
+
+      # Real env values aren't available in CI, and none of this code
+      # reads env vars at import time (only inside request handlers),
+      # so a build with placeholder values is a genuine check that the
+      # app compiles - not a rubber stamp.
+      - name: Build
+        run: npm run build
+        env:
+          NEXT_PUBLIC_SITE_URL: https://example.com
+          AUTH_SECRET: ci-placeholder-secret-ci-placeholder
+          GIST_DB_TOKEN: ci-placeholder
+          GIST_DB_ID: ci-placeholder
+          ENCRYPTION_KEY: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
