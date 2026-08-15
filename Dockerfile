@@ -6,13 +6,16 @@
 
 FROM node:20-slim AS deps
 WORKDIR /app
-COPY package.json ./
+COPY package.json package-lock.json* ./
+# Install ALL dependencies (including dev dependencies for build)
 RUN npm install
 
 FROM node:20-slim AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+# Make sure we have all dependencies
+RUN npm install --legacy-peer-deps
 RUN npm run build
 
 FROM node:20-slim AS runner
